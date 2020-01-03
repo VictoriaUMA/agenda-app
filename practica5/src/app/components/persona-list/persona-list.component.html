@@ -1,0 +1,62 @@
+<!-- Title group  -->
+<div class="title-group">
+    <h1 class="mat-h1">Lista Personas</h1>
+    <mat-divider fxFlex="1 0"></mat-divider>
+</div>
+<button mat-raised-button color="primary" class="push-right" [routerLink]="['/add-persona']">Añadir</button>
+
+<p *ngIf="dataSource.data.length == 0" class="no-data">No hay personas añadidas aún!!!!</p>
+
+<div class="container" *ngIf="dataSource.data.length > 0">
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+        <ng-container matColumnDef="nombre">
+            <th mat-header-cell *matHeaderCellDef> Nombre </th>
+            <td mat-cell *matCellDef="let element"> {{element.nombre}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="apellidos">
+            <th mat-header-cell *matHeaderCellDef> Apellidos </th>
+            <td mat-cell *matCellDef="let element"> {{element.apellidos}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="edad">
+            <th mat-header-cell *matHeaderCellDef> Edad </th>
+            <td mat-cell *matCellDef="let element"> {{element.edad}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="dni">
+            <th mat-header-cell *matHeaderCellDef> DNI </th>
+            <td mat-cell *matCellDef="let element"> {{element.dni}} </td>
+        </ng-container>
+        <ng-container matColumnDef="color">
+            <th mat-header-cell *matHeaderCellDef> Color </th>
+            <td mat-cell *matCellDef="let element"> {{element.color}} </td>
+        </ng-container>
+        <ng-container matColumnDef="cumple">
+            <th mat-header-cell *matHeaderCellDef> Fecha Nacimiento </th>
+            <td mat-cell *matCellDef="let element"> {{element.birthday | date: 'dd/MM/yyyy'}} </td>
+        </ng-container>
+        <ng-container matColumnDef="sexo">
+            <th mat-header-cell *matHeaderCellDef> Sexo </th>
+            <td mat-cell *matCellDef="let element"> {{element.sexo}} </td>
+        </ng-container>
+        <!--Si quisieramos añadir el campo Nota a la lista
+        <ng-container matColumnDef="nota">
+            <th mat-header-cell *matHeaderCellDef> Nota </th>
+            <td mat-cell *matCellDef="let element"> {{element.notas}} </td>
+        </ng-container>
+        -->
+        <ng-container matColumnDef="action">
+            <th mat-header-cell *matHeaderCellDef> Acción </th>
+            <td mat-cell *matCellDef="let element">
+                <button mat-raised-button color="primary" class="push-right" [routerLink]="['/edit-persona/', element._id]">Editar</button>
+                <button mat-raised-button color="accent" (click)="deletePersona(element._id, element)">Borrar</button>
+            </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+
+</div>
